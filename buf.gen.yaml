@@ -1,0 +1,15 @@
+version: v2
+
+plugins:
+  - remote: buf.build/community/stephenh-ts-proto
+    out: generated
+    opt:
+      - nestJs=true
+      - addGrpcMetadata=true
+      - useOptionals=messages
+      - outputServices=default
+      - outputEncodeMethods=false
+      - outputJsonMethods=false
+      - outputClientImpl=false
+      - stringEnums=false
+      - esModuleInterop=true- esModuleInterop=true
