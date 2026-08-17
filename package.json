@@ -1,6 +1,6 @@
 {
   "name": "@ecommerce/contracts",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": false,
   "files": [
     "proto",
@@ -10,12 +10,12 @@
     "descriptor.binpb"
   ],
   "exports": {
-  "./package.json": "./package.json",
-  "./generated/*": {
-    "types": "./dist/generated/*.d.ts",
-    "require": "./dist/generated/*.js"
-  }
-},
+    "./package.json": "./package.json",
+    "./generated/*": {
+      "types": "./dist/generated/*.d.ts",
+      "require": "./dist/generated/*.js"
+    }
+  },
   "scripts": {
     "lint": "buf lint",
     "format": "buf format -w",
