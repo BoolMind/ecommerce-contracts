@@ -1,8 +1,21 @@
+# Dependencies
 node_modules/
-dist/
+
+# Buf downloaded dependencies
+dependencies/buf/
+
+# Generated descriptor files
+*.binpb
+
+# npm package artifacts
+*.tgz
+
+# Environment
 .env
 .env.*
-!.env.example
-coverage/
-*.log
+
+# OS
 .DS_Store
+
+# IDE
+.vscode/
