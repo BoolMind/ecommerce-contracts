@@ -9,6 +9,13 @@
     "dist",
     "descriptor.binpb"
   ],
+  "exports": {
+  "./package.json": "./package.json",
+  "./generated/*": {
+    "types": "./dist/generated/*.d.ts",
+    "require": "./dist/generated/*.js"
+  }
+},
   "scripts": {
     "lint": "buf lint",
     "format": "buf format -w",

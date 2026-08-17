@@ -1,23 +1,8 @@
-# Node
 node_modules/
-
-# npm
-*.tgz
-npm-debug.log*
-yarn-debug.log*
-pnpm-debug.log*
-
-# IDE
-.vscode/
-.idea/
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Logs
-*.log
-
-# Environment
+dist/
 .env
-.env.*dist/
+.env.*
+!.env.example
+coverage/
+*.log
+.DS_Store
