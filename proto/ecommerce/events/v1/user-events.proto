@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package ecommerce.events.v1;
+
+import "google/protobuf/timestamp.proto";
+import "buf/validate/validate.proto";
+
+option go_package = "ecommerce/events/v1";
+
+message UserRegisteredEvent {
+  string event_id = 1 [
+    (buf.validate.field).string.uuid = true
+  ];
+
+  string event_type = 2 [
+    (buf.validate.field).string.const = "user.registered"
+  ];
+
+  int64 user_id = 3 [
+    (buf.validate.field).int64.gt = 0
+  ];
+
+  string email = 4 [
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 320
+      email: true
+    }
+  ];
+
+  string name = 5 [
+    (buf.validate.field).string = {
+      min_len: 1
+      max_len: 255
+    }
+  ];
+
+  google.protobuf.Timestamp registered_at = 6 [
+    (buf.validate.field).required = true
+  ];
+}

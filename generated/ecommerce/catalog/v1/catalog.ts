@@ -192,10 +192,10 @@ export const ProductServiceCreateRequest: MessageFns<ProductServiceCreateRequest
       writer.uint32(25).double(message.price);
     }
     if (message.categoryId !== 0) {
-      writer.uint32(32).int32(message.categoryId);
+      writer.uint32(32).int64(message.categoryId);
     }
     if (message.userId !== 0) {
-      writer.uint32(40).int32(message.userId);
+      writer.uint32(40).int64(message.userId);
     }
     return writer;
   },
@@ -236,7 +236,7 @@ export const ProductServiceCreateRequest: MessageFns<ProductServiceCreateRequest
             break;
           }
 
-          message.categoryId = reader.int32();
+          message.categoryId = longToNumber(reader.int64());
           continue;
         }
         case 5: {
@@ -244,7 +244,7 @@ export const ProductServiceCreateRequest: MessageFns<ProductServiceCreateRequest
             break;
           }
 
-          message.userId = reader.int32();
+          message.userId = longToNumber(reader.int64());
           continue;
         }
       }
@@ -313,7 +313,7 @@ export const ProductServiceUpdateRequest: MessageFns<ProductServiceUpdateRequest
       writer.uint32(33).double(message.price);
     }
     if (message.categoryId !== undefined) {
-      writer.uint32(40).int32(message.categoryId);
+      writer.uint32(40).int64(message.categoryId);
     }
     return writer;
   },
@@ -362,7 +362,7 @@ export const ProductServiceUpdateRequest: MessageFns<ProductServiceUpdateRequest
             break;
           }
 
-          message.categoryId = reader.int32();
+          message.categoryId = longToNumber(reader.int64());
           continue;
         }
       }
@@ -537,7 +537,7 @@ function createBaseProductServiceFindByCategoryRequest(): ProductServiceFindByCa
 export const ProductServiceFindByCategoryRequest: MessageFns<ProductServiceFindByCategoryRequest> = {
   encode(message: ProductServiceFindByCategoryRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.categoryId !== 0) {
-      writer.uint32(8).int32(message.categoryId);
+      writer.uint32(8).int64(message.categoryId);
     }
     return writer;
   },
@@ -554,7 +554,7 @@ export const ProductServiceFindByCategoryRequest: MessageFns<ProductServiceFindB
             break;
           }
 
-          message.categoryId = reader.int32();
+          message.categoryId = longToNumber(reader.int64());
           continue;
         }
       }
@@ -574,7 +574,7 @@ function createBaseProductServiceFindByUserRequest(): ProductServiceFindByUserRe
 export const ProductServiceFindByUserRequest: MessageFns<ProductServiceFindByUserRequest> = {
   encode(message: ProductServiceFindByUserRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.userId !== 0) {
-      writer.uint32(8).int32(message.userId);
+      writer.uint32(8).int64(message.userId);
     }
     return writer;
   },
@@ -591,7 +591,7 @@ export const ProductServiceFindByUserRequest: MessageFns<ProductServiceFindByUse
             break;
           }
 
-          message.userId = reader.int32();
+          message.userId = longToNumber(reader.int64());
           continue;
         }
       }
@@ -1525,10 +1525,10 @@ export const Product: MessageFns<Product> = {
       writer.uint32(33).double(message.price);
     }
     if (message.categoryId !== 0) {
-      writer.uint32(40).int32(message.categoryId);
+      writer.uint32(40).int64(message.categoryId);
     }
     if (message.userId !== 0) {
-      writer.uint32(48).int32(message.userId);
+      writer.uint32(48).int64(message.userId);
     }
     if (message.createdAt !== undefined) {
       Timestamp.encode(message.createdAt, writer.uint32(58).fork()).join();
@@ -1586,7 +1586,7 @@ export const Product: MessageFns<Product> = {
             break;
           }
 
-          message.categoryId = reader.int32();
+          message.categoryId = longToNumber(reader.int64());
           continue;
         }
         case 6: {
@@ -1594,7 +1594,7 @@ export const Product: MessageFns<Product> = {
             break;
           }
 
-          message.userId = reader.int32();
+          message.userId = longToNumber(reader.int64());
           continue;
         }
         case 7: {
@@ -1917,6 +1917,17 @@ export interface CategoryService {
   delete(request: CategoryServiceDeleteRequest, metadata?: Metadata): Promise<CategoryServiceDeleteResponse>;
   restore(request: CategoryServiceRestoreRequest, metadata?: Metadata): Promise<CategoryServiceRestoreResponse>;
   paginate(request: CategoryServicePaginateRequest, metadata?: Metadata): Promise<CategoryServicePaginateResponse>;
+}
+
+function longToNumber(int64: { toString(): string }): number {
+  const num = globalThis.Number(int64.toString());
+  if (num > globalThis.Number.MAX_SAFE_INTEGER) {
+    throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+  }
+  if (num < globalThis.Number.MIN_SAFE_INTEGER) {
+    throw new globalThis.Error("Value is smaller than Number.MIN_SAFE_INTEGER");
+  }
+  return num;
 }
 
 export interface MessageFns<T> {

@@ -1,0 +1,131 @@
+===== README =====
+# Ecommerce Contracts
+
+`@ecommerce/contracts` contains the shared Protocol Buffer contracts used by the Ecommerce Microservices.
+
+These contracts define the gRPC interfaces and message structures used for communication between services.
+
+## Responsibilities
+
+* Define gRPC services
+* Define protobuf messages
+* Define request and response structures
+* Maintain shared service contracts
+* Provide generated TypeScript types and gRPC interfaces
+
+## Architecture
+
+```text
+                    Ecommerce Contracts
+                           |
+             ---------------|---------------
+             |              |              |
+             v              v              v
+       API Gateway    User Service    Catalog Service
+```
+
+## Tech Stack
+
+* Protocol Buffers
+* gRPC
+* TypeScript
+* Buf
+* Buf Build
+* ts-proto / generated TypeScript code
+
+## Structure
+
+The repository contains protobuf definitions and generated contract code.
+
+Example:
+
+```text
+proto/
+├── user.proto
+├── product.proto
+└── category.proto
+```
+
+The exact structure may vary as the contracts evolve.
+
+## Installation
+
+```bash
+npm install
+```
+
+## Build
+
+```bash
+npm run build
+```
+
+## Usage
+
+The generated contracts are consumed by the API Gateway and microservices to ensure that gRPC communication follows a shared interface.
+
+## Design Principles
+
+This repository should contain:
+
+* API contracts
+* Protobuf definitions
+* Generated contract code
+
+Business logic should not be implemented here.
+
+## Related Repositories
+
+* [API Gateway](https://github.com/BoolMind/api-gateway)
+* [User Service](https://github.com/BoolMind/user-service)
+* [Catalog Service](https://github.com/BoolMind/catalog-service)
+* [Ecommerce Common](https://github.com/BoolMind/ecommerce-common)
+
+## License
+
+Private project developed under BoolMind.
+
+===== GITIGNORE =====
+# Dependencies
+node_modules/
+
+# Buf downloaded dependencies
+dependencies/buf/
+
+# Generated descriptor files
+*.binpb
+
+# npm package artifacts
+*.tgz
+
+# Environment
+.env
+.env.*
+
+# OS
+.DS_Store
+
+# IDE
+.vscode/
+===== ALL SOURCE/CONFIG FILES =====
+./.backups-order-proto.bak
+./buf.gen.yaml
+./buf.lock
+./buf.yaml
+./contracts-missing-files.txt
+./dependencies/buf/validate/validate.proto
+./ecommerce-contracts-1.1.0.tgz
+./ecommerce-contracts.txt
+./gateway-contracts.txt
+./.gitignore
+./package.json
+./package-lock.json
+./proto/ecommerce/catalog/v1/catalog.proto
+./proto/ecommerce/common/v1/common.proto
+./proto/ecommerce/common/v1/health.proto
+./proto/ecommerce/events/v1/order-events.proto
+./proto/ecommerce/events/v1/user-events.proto
+./proto/ecommerce/order/v1/order.proto
+./proto/ecommerce/user/v1/user.proto
+./README.md
+./tsconfig.json
