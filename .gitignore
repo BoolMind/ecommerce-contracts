@@ -25,3 +25,9 @@ pnpm-debug.log*
 Thumbs.db
 
 *.bak
+
+# Temporary review/context artifacts
+*.bak
+*-context.txt
+*-missing.txt
+*-reference.txt
