@@ -1,6 +1,6 @@
 {
   "name": "@ecommerce/contracts",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": false,
   "files": [
     "proto",
@@ -19,7 +19,7 @@
   "scripts": {
     "lint": "buf lint",
     "format": "buf format -w",
-    "generate": "buf generate",
+    "generate": "buf generate && protoc -I proto -I dependencies --include_imports --descriptor_set_out=descriptor.binpb $(find proto -name '*.proto')",
     "build": "npm run generate && tsc"
   },
   "devDependencies": {

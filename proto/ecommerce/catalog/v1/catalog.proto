@@ -34,6 +34,9 @@ service ProductService {
 
   rpc FindByUser(ProductServiceFindByUserRequest)
       returns (ProductServiceFindByUserResponse);
+
+  rpc AddStock(ProductServiceAddStockRequest)
+      returns (ProductServiceAddStockResponse);
 }
 
 // ============================================================================
@@ -172,6 +175,16 @@ message ProductServiceFindByUserRequest {
   ];
 }
 
+message ProductServiceAddStockRequest {
+  int32 product_id = 1 [
+    (buf.validate.field).int32.gt = 0
+  ];
+
+  int32 quantity = 2 [
+    (buf.validate.field).int32.gt = 0
+  ];
+}
+
 // ============================================================================
 // Product Responses
 // ============================================================================
@@ -207,6 +220,10 @@ message ProductServiceFindByCategoryResponse {
 
 message ProductServiceFindByUserResponse {
   repeated Product items = 1;
+}
+
+message ProductServiceAddStockResponse {
+  Product product = 1;
 }
 
 // ============================================================================
@@ -335,6 +352,9 @@ message Product {
   google.protobuf.Timestamp created_at = 7;
   google.protobuf.Timestamp updated_at = 8;
   Category category = 9;
+  int32 total_stock = 10;
+  int32 reserved_stock = 11;
+  int32 available_stock = 12;
 }
 
 message Category {

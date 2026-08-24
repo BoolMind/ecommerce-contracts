@@ -40,6 +40,10 @@ export interface ProductServiceFindByCategoryRequest {
 export interface ProductServiceFindByUserRequest {
     userId: number;
 }
+export interface ProductServiceAddStockRequest {
+    productId: number;
+    quantity: number;
+}
 export interface ProductServiceCreateResponse {
     product?: Product | undefined;
 }
@@ -64,6 +68,9 @@ export interface ProductServiceFindByCategoryResponse {
 }
 export interface ProductServiceFindByUserResponse {
     items: Product[];
+}
+export interface ProductServiceAddStockResponse {
+    product?: Product | undefined;
 }
 export interface CategoryServiceCreateRequest {
     name: string;
@@ -124,6 +131,9 @@ export interface Product {
     createdAt?: Timestamp | undefined;
     updatedAt?: Timestamp | undefined;
     category?: Category | undefined;
+    totalStock: number;
+    reservedStock: number;
+    availableStock: number;
 }
 export interface Category {
     id: number;
@@ -141,6 +151,7 @@ export declare const ProductServiceRestoreRequest: MessageFns<ProductServiceRest
 export declare const ProductServicePaginateRequest: MessageFns<ProductServicePaginateRequest>;
 export declare const ProductServiceFindByCategoryRequest: MessageFns<ProductServiceFindByCategoryRequest>;
 export declare const ProductServiceFindByUserRequest: MessageFns<ProductServiceFindByUserRequest>;
+export declare const ProductServiceAddStockRequest: MessageFns<ProductServiceAddStockRequest>;
 export declare const ProductServiceCreateResponse: MessageFns<ProductServiceCreateResponse>;
 export declare const ProductServiceGetByIdResponse: MessageFns<ProductServiceGetByIdResponse>;
 export declare const ProductServiceUpdateResponse: MessageFns<ProductServiceUpdateResponse>;
@@ -149,6 +160,7 @@ export declare const ProductServiceRestoreResponse: MessageFns<ProductServiceRes
 export declare const ProductServicePaginateResponse: MessageFns<ProductServicePaginateResponse>;
 export declare const ProductServiceFindByCategoryResponse: MessageFns<ProductServiceFindByCategoryResponse>;
 export declare const ProductServiceFindByUserResponse: MessageFns<ProductServiceFindByUserResponse>;
+export declare const ProductServiceAddStockResponse: MessageFns<ProductServiceAddStockResponse>;
 export declare const CategoryServiceCreateRequest: MessageFns<CategoryServiceCreateRequest>;
 export declare const CategoryServiceGetByIdRequest: MessageFns<CategoryServiceGetByIdRequest>;
 export declare const CategoryServiceFindAllRequest: MessageFns<CategoryServiceFindAllRequest>;
@@ -174,6 +186,7 @@ export interface ProductServiceClient {
     paginate(request: ProductServicePaginateRequest, metadata?: Metadata): Observable<ProductServicePaginateResponse>;
     findByCategory(request: ProductServiceFindByCategoryRequest, metadata?: Metadata): Observable<ProductServiceFindByCategoryResponse>;
     findByUser(request: ProductServiceFindByUserRequest, metadata?: Metadata): Observable<ProductServiceFindByUserResponse>;
+    addStock(request: ProductServiceAddStockRequest, metadata?: Metadata): Observable<ProductServiceAddStockResponse>;
 }
 export interface ProductServiceController {
     create(request: ProductServiceCreateRequest, metadata?: Metadata): Promise<ProductServiceCreateResponse> | Observable<ProductServiceCreateResponse> | ProductServiceCreateResponse;
@@ -184,6 +197,7 @@ export interface ProductServiceController {
     paginate(request: ProductServicePaginateRequest, metadata?: Metadata): Promise<ProductServicePaginateResponse> | Observable<ProductServicePaginateResponse> | ProductServicePaginateResponse;
     findByCategory(request: ProductServiceFindByCategoryRequest, metadata?: Metadata): Promise<ProductServiceFindByCategoryResponse> | Observable<ProductServiceFindByCategoryResponse> | ProductServiceFindByCategoryResponse;
     findByUser(request: ProductServiceFindByUserRequest, metadata?: Metadata): Promise<ProductServiceFindByUserResponse> | Observable<ProductServiceFindByUserResponse> | ProductServiceFindByUserResponse;
+    addStock(request: ProductServiceAddStockRequest, metadata?: Metadata): Promise<ProductServiceAddStockResponse> | Observable<ProductServiceAddStockResponse> | ProductServiceAddStockResponse;
 }
 export declare function ProductServiceControllerMethods(): (constructor: Function) => void;
 export declare const PRODUCT_SERVICE_NAME = "ProductService";
@@ -196,6 +210,7 @@ export interface ProductService {
     paginate(request: ProductServicePaginateRequest, metadata?: Metadata): Promise<ProductServicePaginateResponse>;
     findByCategory(request: ProductServiceFindByCategoryRequest, metadata?: Metadata): Promise<ProductServiceFindByCategoryResponse>;
     findByUser(request: ProductServiceFindByUserRequest, metadata?: Metadata): Promise<ProductServiceFindByUserResponse>;
+    addStock(request: ProductServiceAddStockRequest, metadata?: Metadata): Promise<ProductServiceAddStockResponse>;
 }
 export interface CategoryServiceClient {
     create(request: CategoryServiceCreateRequest, metadata?: Metadata): Observable<CategoryServiceCreateResponse>;

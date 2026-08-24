@@ -12,4 +12,4 @@ plugins:
       - outputJsonMethods=false
       - outputClientImpl=false
       - stringEnums=false
-      - esModuleInterop=true- esModuleInterop=true
+      - esModuleInterop=true

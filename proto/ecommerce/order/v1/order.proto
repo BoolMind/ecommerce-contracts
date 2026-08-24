@@ -16,6 +16,8 @@ enum OrderFailureReason {
   ORDER_FAILURE_REASON_UNSPECIFIED = 0;
   ORDER_FAILURE_REASON_STOCK_UNAVAILABLE = 1;
   ORDER_FAILURE_REASON_PAYMENT_FAILED = 2;
+  ORDER_FAILURE_REASON_PRODUCT_NOT_FOUND = 3;
+  ORDER_FAILURE_REASON_INSUFFICIENT_STOCK = 4;
 }
 
 message OrderItemRequest {
@@ -54,9 +56,23 @@ message OrderStatusResponse {
   OrderFailureReason failure_reason = 3;
   string total_amount = 4;
   repeated OrderItemResponse items = 5;
+  string failure_detail = 6;
+}
+
+message ListOrdersRequest {
+  int32 page = 1 [(buf.validate.field).int32.gte = 1];
+  int32 limit = 2 [(buf.validate.field).int32.gte = 1, (buf.validate.field).int32.lte = 100];
+}
+
+message ListOrdersResponse {
+  repeated OrderStatusResponse orders = 1;
+  int32 page = 2;
+  int32 limit = 3;
+  int64 total = 4;
 }
 
 service OrderService {
   rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse);
   rpc GetOrderStatus(GetOrderStatusRequest) returns (OrderStatusResponse);
+  rpc ListOrders(ListOrdersRequest) returns (ListOrdersResponse);
 }

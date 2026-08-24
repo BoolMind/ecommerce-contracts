@@ -1,21 +1,27 @@
-# Dependencies
 node_modules/
+dist/
+generated/
 
-# Buf downloaded dependencies
-dependencies/buf/
+dependencies/
 
-# Generated descriptor files
-*.binpb
-
-# npm package artifacts
-*.tgz
-
-# Environment
 .env
 .env.*
+!.env.example
 
-# OS
-.DS_Store
+*.binpb
+*.tgz
 
-# IDE
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+*.tsbuildinfo
+
 .vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+*.bak

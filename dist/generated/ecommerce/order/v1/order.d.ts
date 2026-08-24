@@ -14,6 +14,8 @@ export declare enum OrderFailureReason {
     ORDER_FAILURE_REASON_UNSPECIFIED = 0,
     ORDER_FAILURE_REASON_STOCK_UNAVAILABLE = 1,
     ORDER_FAILURE_REASON_PAYMENT_FAILED = 2,
+    ORDER_FAILURE_REASON_PRODUCT_NOT_FOUND = 3,
+    ORDER_FAILURE_REASON_INSUFFICIENT_STOCK = 4,
     UNRECOGNIZED = -1
 }
 export interface OrderItemRequest {
@@ -49,6 +51,17 @@ export interface OrderStatusResponse {
     failureReason: OrderFailureReason;
     totalAmount: string;
     items: OrderItemResponse[];
+    failureDetail: string;
+}
+export interface ListOrdersRequest {
+    page: number;
+    limit: number;
+}
+export interface ListOrdersResponse {
+    orders: OrderStatusResponse[];
+    page: number;
+    limit: number;
+    total: number;
 }
 export declare const ECOMMERCE_ORDER_V1_PACKAGE_NAME = "ecommerce.order.v1";
 export declare const OrderItemRequest: MessageFns<OrderItemRequest>;
@@ -57,19 +70,24 @@ export declare const CreateOrderRequest: MessageFns<CreateOrderRequest>;
 export declare const CreateOrderResponse: MessageFns<CreateOrderResponse>;
 export declare const GetOrderStatusRequest: MessageFns<GetOrderStatusRequest>;
 export declare const OrderStatusResponse: MessageFns<OrderStatusResponse>;
+export declare const ListOrdersRequest: MessageFns<ListOrdersRequest>;
+export declare const ListOrdersResponse: MessageFns<ListOrdersResponse>;
 export interface OrderServiceClient {
     createOrder(request: CreateOrderRequest, metadata?: Metadata): Observable<CreateOrderResponse>;
     getOrderStatus(request: GetOrderStatusRequest, metadata?: Metadata): Observable<OrderStatusResponse>;
+    listOrders(request: ListOrdersRequest, metadata?: Metadata): Observable<ListOrdersResponse>;
 }
 export interface OrderServiceController {
     createOrder(request: CreateOrderRequest, metadata?: Metadata): Promise<CreateOrderResponse> | Observable<CreateOrderResponse> | CreateOrderResponse;
     getOrderStatus(request: GetOrderStatusRequest, metadata?: Metadata): Promise<OrderStatusResponse> | Observable<OrderStatusResponse> | OrderStatusResponse;
+    listOrders(request: ListOrdersRequest, metadata?: Metadata): Promise<ListOrdersResponse> | Observable<ListOrdersResponse> | ListOrdersResponse;
 }
 export declare function OrderServiceControllerMethods(): (constructor: Function) => void;
 export declare const ORDER_SERVICE_NAME = "OrderService";
 export interface OrderService {
     createOrder(request: CreateOrderRequest, metadata?: Metadata): Promise<CreateOrderResponse>;
     getOrderStatus(request: GetOrderStatusRequest, metadata?: Metadata): Promise<OrderStatusResponse>;
+    listOrders(request: ListOrdersRequest, metadata?: Metadata): Promise<ListOrdersResponse>;
 }
 export interface MessageFns<T> {
     encode(message: T, writer?: BinaryWriter): BinaryWriter;
